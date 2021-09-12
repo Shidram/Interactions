@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %} 
+{% block body %} 
+        <div class="container">
+            <p><h2><b>Manage Employees</b></h2></p>
+            <div class="row float-right">                                               
+        
+                <div class="col-6">
+                    <button type="button" class="btn btn-dark"><a href = "{{ url_for('create') }}"><b>Add New Employees</b></a></button>
+                </div>
+            </div>
+            <div class="row">
+                <!-- <div class="col-8">
+                    <strong>Search For : {{ tag}}</strong>
+                </div> -->
+                <div class="col-12">
+                    <form action="" method="post" autocomplete="off"> 
+                        
+                        <div class="row">                            
+                            <div class="col-4 col-md-8">
+                                <input type="text" class="form-control" name="tag" id="tag"  placeholder="Search like fieldname: partial_or_full_text (example search -> firstname: abc)"/> 
+                               
+                            </div>
+                            <div class="col-6 col-md-2" align="left">
+                                <input type="submit" value="Search" class="form-control btn btn-primary " name=""> 
+                            </div>  
+                        </div>
+                        <!-- </div> -->
+                    </form> 
+                </div>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-12">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>firstname</th>
+                            <th>lastname</th>
+                            <th>date_of_joining</th>
+                            <th>department</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employee in employees.items %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ employee.firstname}}</td>
+                                <td>{{ employee.lastname}}</td>
+                                <td>{{ employee.date_of_joining}}</td>
+                                <td>{{ employee.department}}</td>
+                                <td>
+                                    <a href="/update/{{employee.id}}/" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{ employee.id }}">Edit</a>
+                                    <a href="/delete/{{employee.id}}/" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>      
+                                </td>
+                            </tr>
+                            <!-- Updating  Employee Information -->
+                            <div id="modaledit{{ employee.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog"> 
+                                    <div class="modal-content"> 
+                                        <div class="modal-header"> 
+                                            <h4 class="modal-title">Update Employee Information</h4> 
+                                        </div> 
+                                        <div class="modal-body"> 
+                                            <form action="{{ url_for('update') }}" method="POST">                          
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label for="fName"><b>First Name</b></label>
+                                                        <input type="hidden"  name="id" value="{{ employee.id }}"> 
+                                                        <input type="text" placeholder="Enter First Name" name="fName" id="fName"  value="{{employee.firstname}}" required>
+                                            
+                                                        <label for="City"><b>City</b></label>
+                                                        <input type="text" placeholder="Enter City" name="City" id="City" value="{{employee.city}}" required>
+                                            
+                                                        <label for="Addr"><b>Address</b></label><br>
+                                                        <textarea type="text" name = "Addr" placeholder = "Address" value="{{employee.address}}"></textarea>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label for="LName"><b>Last Name</b></label>
+                                                        <input type="text" placeholder="Enter Last Name" name="LName" id="LName"  value="{{employee.lastname}}"  required>    
+                                            
+                                                        <label for="department"><b>Department</b></label>
+                                                        <input type="text" placeholder="Enter Department" name="Department" id="Department" value="{{employee.department}}" required>    
+                                                        
+                                                        <label for="DOJ"><b>Date of Joinig</b></label>
+                                                        <br/>
+                                                        <input type="date" placeholder="Enter Date of Joining" name="Doj" id="Doj" value="{{employee.date_of_joining}}" required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group"> 
+                                                    <button class="btn btn-primary" type="submit">Update</button>
+                                                </div> 
+                                            </form> 
+                                        </div> 
+                                        <div class="modal-footer"> 
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+                                        </div> 
+                                    </div> 
+                                </div>
+                            </div>
+                        {% endfor %}  
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if employees.has_prev %}
+                            <li class="page-item"> <a class="page-link" href="{{ url_for('get_employee', page = employees.prev_num) }}">Previous</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link btn disabled" href="#">Previous</a></li>
+                        {% endif %}
+      
+                        {% for page in employees.iter_pages(left_edge=3, right_edge=3) %}
+                            {% if page %}                            
+                                {% if page==employees.page %}
+                                    <li class="page-item active"><a class="page-link" href="{{ url_for('get_employee', page=page) }}">{{ page }}</a></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('get_employee', page=page) }}">{{ page }}</a></li>
+                                {% endif %}                                
+                            {% else %}
+                                <li class="page-item disabled" id="example_ellipsis"><a href="#" class="page-link">…</a></li> 
+                            {% endif %}
+                        {% endfor %}
+                    
+                        {% if employees.has_next %}
+                        <li class="page-item"> <a class="page-link" href="{{ url_for('get_employee', page=employees.next_num) }}">Next</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link btn disabled" href="#">Next</a></li>
+                        {% endif %} 
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    <!-- </body>
+</html> -->
+
+{% endblock %}

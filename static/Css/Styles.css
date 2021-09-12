@@ -1,0 +1,124 @@
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=date] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px #999;
+}
+
+input[type=text]:focus, input[type=date]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+input[type=submit] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  /* display: inline-block; */
+  border: none;
+  /* background: #f1f1f1; */
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px #999;
+  text-align:center;
+  vertical-align:middle;
+}
+
+textarea {
+  font-size: .8rem;
+  letter-spacing: 1px;
+}
+textarea {
+  padding: 15px;
+  width: 100%;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 1px #999;
+  background: #f1f1f1;
+}
+textarea:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: hotpink;;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.createAccount {
+	padding: 0.3% 0.3%;
+    margin: 1% 0%;
+    border-radius: 5px;
+    border: none;
+}
+.navbar{
+	 border-radius:none !important;
+}
+
+table{
+  width:100%;
+}
+#example_filter{
+  float:right;
+}
+#example_paginate{
+  float:right;
+}
+label {
+  display: inline-flex;
+  margin-bottom: .5rem;
+  margin-top: .5rem;
+  
+}
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
